@@ -1,37 +1,43 @@
-import java.util.List;
-import fast_delivery.web.controller.ClienteController;
-import fast_delivery.web.controller.EnderecoController;
-import fast_delivery.web.model.entidades.Cliente;
-import fast_delivery.web.model.entidades.Endereco;
-
-public class TesteCliente {
-
-	public static void main(String[] args) {
-
-		EnderecoController ec = new EnderecoController();
-		ClienteController cc = new ClienteController();
-
-		Endereco e = new Endereco("Rua Sao Luis", 3, "Sao Pedro", "Garanhuns", "55200-11");
-		Cliente c = new Cliente("33.333.333/3333-33", "Acai dululu", "37622-1013", e);
-
-//		          Inserir
-//		 ec.inserirEnderecoAction(e);
-//		 cc.inserirClienteAction(c);
-
-//					Alterar
+//import java.util.List;
+//import fast_delivery.web.controller.ClienteController;
+//import fast_delivery.web.controller.EnderecoController;
+//import fast_delivery.web.model.ClienteModel;
+//import fast_delivery.web.model.entidades.Cliente;
+//import fast_delivery.web.model.entidades.Endereco;
+//
+//public class TesteCliente {
+//
+//	public static void main(String[] args) {
+//
+//		EnderecoController ec = new EnderecoController();
+//		ClienteController cc = new ClienteController();
+//
+//		Endereco e = new Endereco("Orestes Barbosa", "Magano","358", "Casa", "Garanhuns", "Pernambuco");
+//		
+//		
+//		Cliente c = new Cliente("Tiago", "111.111.111-01", "87 99609-2020", "tiagotiti@gmail.com",
+//				"tiago1010",e);
+//		
+//		
+//
+////		          Inserir
+//		// ec.inserirEnderecoAction(e);
+//		//cc.inserirClienteAction(c);
+//
+////					Alterar
 ////	 ClienteModel cm= new ClienteModel();
 ////	 c=cm.recuperarCliente(2);
-////	 c.setRazaoSocial("Sandro Pizaria");
+////	 c.setNomeCliente("Maria Jose");
 ////	 cc.alterarClienteAction(c);
-
-//					Deletar
-//		ClienteModel cm = new ClienteModel();
-//		c = cm.recuperarCliente(6);
-//		cc.deletarClienteAction(c);
-
-//		List<Cliente> clientes = cc.listarTodosClienteAction();
-//		for (Cliente lista : clientes) {
-//			System.out.println(lista.toString());
-
-		}
-	}
+//
+////					Deletar
+////		ClienteModel cm = new ClienteModel();
+////		c = cm.recuperarCliente(4);
+////		cc.deletarClienteAction(c);
+//
+////		List<Cliente> clientes = cc.listarTodosClienteAction();
+////		for (Cliente lista : clientes) {
+////			System.out.println(lista.toString());
+//
+//		}
+//	}

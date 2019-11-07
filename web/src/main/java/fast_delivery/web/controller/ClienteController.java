@@ -3,6 +3,7 @@ package fast_delivery.web.controller;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -19,6 +20,17 @@ public class ClienteController implements Serializable {
 	private Cliente cliente;
 	private Cliente selectedCliente;
 
+	public String editarTeste(Cliente cTeste) {
+
+		this.cliente = cTeste;
+
+		cm.recuperarPorCodigo(cTeste.getCodCliente());
+
+//		System.out.println(cTeste.toString() + "teste");
+//		
+		return "alterarcliente.xhtml";
+	}
+
 	public ClienteController() {
 
 		this.cliente = new Cliente();
@@ -28,13 +40,12 @@ public class ClienteController implements Serializable {
 
 	}
 
-	public void inserirClienteAction() throws Excecoes {
-		try {
-			if (cliente != null)
-				cm.inserirCliente(cliente);
-		} catch (Exception e) {
-			throw new Excecoes("Error ao Salvar");
-		}
+	public void inserirClienteAction() {
+		this.cm.inserirCliente(this.cliente);
+		this.cliente = new Cliente();
+		FacesMessage faces = new FacesMessage("Cliente salvado com sucesso");
+		FacesContext contexto = FacesContext.getCurrentInstance();
+		contexto.addMessage(null, faces);
 	}
 
 	public Cliente recuperarClienteAction(Integer c) {
@@ -45,8 +56,10 @@ public class ClienteController implements Serializable {
 		return cm.recuperarPorCodigo(codCliente);
 	}
 
-	public void alterarClienteAction(Cliente c) {
-		cm.alterarCliente(c);
+	public String alterarClienteAction() {
+		this.cm.alterarCliente(selectedCliente);
+		return "listarclientes.xhtml";
+
 	}
 
 	public void deletarClienteAction(Cliente c) {

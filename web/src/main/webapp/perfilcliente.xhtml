@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+<f:view contentType="text/html">
+	<h:head>
+		<f:facet name="first">
+			<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
+			<link rel="stylesheet" type="text/css"
+				href="resources/css/perfilCliente.css" />
+			<title>Perfil Cliente</title>
+		</f:facet>
+	</h:head>
+
+	<h:body>
+		<div id="contaneer">
+			<div id="conteudo">
+				<div id="form-login">
+					<h:form id="formLogar">
+					<p:commandButton styleClass="botaoAlterarCliente" value="Alterar Dados"
+							 />
+							
+						<p:commandButton styleClass="botaoPostoCliente" value="Realizar Compra"
+							 />
+
+
+						<p:commandButton styleClass="botaoPostoCadastroCliente"
+							value="Histórico Compra"
+						 />
+
+					</h:form>
+				</div>
+			</div>
+		</div>
+	</h:body>
+</f:view>
+</html>

@@ -19,22 +19,20 @@ public class ClienteModel {
 	}
 
 	public Cliente recuperarCliente(Integer c) {
-
 		return cli.recuperar(c);
 
+	}
+
+	public Cliente recuperarPorCodigo(String codCliente) {
+		return cli.recuperarPorCodigo(codCliente);
 	}
 
 	public void deletarCliente(Cliente c) {
 		cli.deletar(c);
 
 	}
-	
-	public Cliente recuperarPorCodigo(String codCliente) {
-		return cli.recuperarPorCodigo(codCliente);
-	}
 
 	public List<Cliente> listarTodos() {
-
 		return cli.listarTodos();
 	}
 

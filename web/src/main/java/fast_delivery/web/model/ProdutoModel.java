@@ -2,9 +2,6 @@ package fast_delivery.web.model;
 
 import java.util.List;
 
-import org.hibernate.Session;
-
-import fast_delivery.web.conexaobanco.HibernateUtil;
 import fast_delivery.web.model.dao.JDBCProdutoDAO;
 import fast_delivery.web.model.entidades.Produto;
 
@@ -22,10 +19,9 @@ public class ProdutoModel {
 	}
 
 	public Produto recuperar(Integer p) {
-
 		return prod.recuperar(p);
 	}
-	
+
 	public Produto recuperarPorCodigo(String str) {
 		return prod.recuperarPorCodigo(str);
 	}
@@ -36,7 +32,6 @@ public class ProdutoModel {
 	}
 
 	public List<Produto> listarTodos() {
-
 		return prod.listarTodos();
 	}
 

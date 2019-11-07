@@ -7,7 +7,7 @@ import javax.persistence.TypedQuery;
 import org.hibernate.Session;
 import fast_delivery.web.conexaobanco.HibernateUtil;
 import fast_delivery.web.model.entidades.Produto;
-import fast_delivery.web.model.entidades.VendaDeMercadoria;
+
 
 public class JDBCProdutoDAO implements ProdutoDao {
 
@@ -55,16 +55,17 @@ public class JDBCProdutoDAO implements ProdutoDao {
 
 	@Override
 	public Produto recuperarPorCodigo(String str) {
-		Produto produto = null;
+		try (Session session = HibernateUtil.getSession()) {
+			Produto produto = session.createNativeQuery("select * from produto where codproduto = '" + str+"'" , Produto.class).getSingleResult();
+			if (produto != null) {
+				return produto;
+			}
 
-		Session session = HibernateUtil.getSession();
-		try {
-			produto = session.find(Produto.class, str);
-			session.close();
 		} catch (Exception e) {
-			System.out.println("Erro ao recuperar " + e.toString());
+			System.err.println("Erro ao recuperar " + e.toString());
 		}
-		return produto;
+		return null;
+
 		
 	}
 	

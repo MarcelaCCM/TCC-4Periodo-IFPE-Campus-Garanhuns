@@ -2,32 +2,31 @@ package fast_delivery.web.model.entidades;
 
 import java.io.Serializable;
 import javax.persistence.Column;
-import javax.persistence.Embedded;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 @Entity
 public class Produto implements Serializable {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int idProduto;
-	
-	@Id
+
+	@Column
 	private String codProduto;
 
 	@Column
 	private String nomeProduto;
-	
+
 	@Column
 	private double precoCustoProduto;
-	
+
 	@Column
 	private double margemLucroProduto;
-	
+
 	@Column
 	private double precoVendaProduto;
 
@@ -43,11 +42,11 @@ public class Produto implements Serializable {
 		this.precoVendaProduto = precoVendaProduto;
 		this.quantProduto = quantProduto;
 	}
-	
+
 	public Produto() {
-		
+
 	}
-	
+
 	public String getCodProduto() {
 		return codProduto;
 	}
@@ -127,7 +126,5 @@ public class Produto implements Serializable {
 			return false;
 		return true;
 	}
-	
-	
-	
+
 }

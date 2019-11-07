@@ -3,17 +3,18 @@ package fast_delivery.web.model.dao;
 import java.util.List;
 
 import org.hibernate.Session;
+
 import fast_delivery.web.conexaobanco.HibernateUtil;
-import fast_delivery.web.model.entidades.Cliente;
+import fast_delivery.web.model.entidades.PedidoVenda;
 
-public class JDBCClienteDAO implements ClienteDao {
+public class JDBCPedidoVendaDAO {
 
-	public void inserir(Cliente c) {
+	public void inserir(PedidoVenda pv) {
 
 		Session session = HibernateUtil.getSession();
 		try {
 			session.getTransaction().begin();
-			session.save(c);
+			session.save(pv);
 			session.getTransaction().commit();
 		} catch (Exception e) {
 			System.out.println("Erro ao inserir" + e.toString());
@@ -23,11 +24,11 @@ public class JDBCClienteDAO implements ClienteDao {
 		}
 	}
 
-	public void alterar(Cliente c) {
+	public void alterar(PedidoVenda pv) {
 		Session session = HibernateUtil.getSession();
 		try {
 			session.getTransaction().begin();
-			session.update(c);
+			session.update(pv);
 			session.getTransaction().commit();
 		} catch (Exception e) {
 			session.getTransaction().rollback();
@@ -38,40 +39,39 @@ public class JDBCClienteDAO implements ClienteDao {
 
 	}
 
-	public Cliente recuperar(Integer c) {
-		Cliente cliente = null;
+	public PedidoVenda recuperar(Integer pv) {
+		PedidoVenda pedidoVenda = null;
 
 		Session session = HibernateUtil.getSession();
 		try {
-			cliente = session.find(Cliente.class, c);
+			pedidoVenda = session.find(PedidoVenda.class, pv);
 			session.close();
 		} catch (Exception e) {
 			System.out.println("Erro ao recuperar " + e.toString());
 		}
-		return cliente;
+		return pedidoVenda;
 	}
 
-	@Override
-	public Cliente recuperarPorCodigo(String codCliente) {
-		Cliente cliente = null;
+	public PedidoVenda recuperarPorCodigo(String codPedidoVenda) {
+		PedidoVenda pedidoVenda = null;
 
 		Session session = HibernateUtil.getSession();
 		try {
-			cliente = session.find(Cliente.class, codCliente);
+			pedidoVenda = session.find(PedidoVenda.class, codPedidoVenda);
 			session.close();
 		} catch (Exception e) {
 			System.out.println("Erro ao recuperar " + e.toString());
 		}
-		return cliente;
+		return pedidoVenda;
 
 	}
 
-	public void deletar(Cliente c) {
+	public void deletar(PedidoVenda pv) {
 		Session session = HibernateUtil.getSession();
-		System.out.println(c.toString());
+		System.out.println(pv.toString());
 		try {
 			session.getTransaction().begin();
-			session.delete(c);
+			session.delete(pv);
 			session.getTransaction().commit();
 		} catch (Exception e) {
 			session.getTransaction().rollback();
@@ -81,11 +81,12 @@ public class JDBCClienteDAO implements ClienteDao {
 		}
 	}
 
-	public List<Cliente> listarTodos() {
+	public List<PedidoVenda> listarTodos() {
 		try (Session session = HibernateUtil.getSession()) {
-			List<Cliente> clientes = session.createNativeQuery("select * from cliente", Cliente.class).list();
-			if (clientes != null) {
-				return clientes;
+			List<PedidoVenda> pedidos = session.createNativeQuery("select * from pedidoVenda", PedidoVenda.class)
+					.list();
+			if (pedidos != null) {
+				return pedidos;
 			}
 
 		} catch (Exception e) {
@@ -95,12 +96,11 @@ public class JDBCClienteDAO implements ClienteDao {
 
 	}
 
-	@Override
-	public boolean verificarClienteCadastrado(Cliente c) {
+	public boolean verificarPedidoVendaCadastrado(PedidoVenda pv) {
 		Session session = HibernateUtil.getSession();
-		Cliente cliente = (Cliente) session.createNativeQuery("select " + c.getCodCliente() + "from cliente",
-				Cliente.class);
-		if (cliente != null) {
+		PedidoVenda pedidoVenda = (PedidoVenda) session
+				.createNativeQuery("select " + pv.getIdPedidoVenda() + "from pedidoVenda", PedidoVenda.class);
+		if (pedidoVenda != null) {
 			return true;
 		}
 		return false;

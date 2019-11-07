@@ -1,0 +1,140 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<f:view contentType="text/html">
+	<h:head>
+		<f:facet name="first">
+			<h:outputStylesheet library="css" name="cadastro.css" />
+			<meta content='text/html; charset=UTF-8' http-equiv="Content-Type" />
+			<title>Lançar Venda</title>
+		</f:facet>
+	</h:head>
+
+	<h:body>
+		<p:growl id="groMessage" life="4000"/>
+		<h:form id="formVenda">
+			<p:wizard>
+				<p:tab id="selecionarCliente" title="Selecionar Cliente">                            
+                    <p:dataTable id="tabelaListaClientes" var="item" value="#{clienteController.listarTodosClienteAction()}" rowKey="#{item.codCliente}"
+                        selection="#{pedidoVendaController.pedidoVenda.cliente}" rows="10" paginator="true">
+
+                        <f:facet name="header">
+                            LISTA DE CLIENTE
+                        </f:facet>
+
+						<p:column selectionMode="single" />
+
+                        <p:column headerText="Código">
+                            #{item.codCliente}
+                        </p:column>
+                        
+                        <p:column headerText="CPF">
+                            #{item.cpfLoginUsuario}
+                        </p:column>
+
+                        <p:column headerText="Nome Cliente" filterBy="#{item.nomeCliente}" sortBy="#{item.nomeCliente}" >
+                            #{item.nomeCliente}
+                        </p:column>
+                    </p:dataTable>
+                </p:tab>
+            	<p:tab id="selecionarProduto" title="Selecionar Produto">                            
+                    <p:dataTable id="tabelaListaProdutos" var="item" value="#{produtoController.getProdutos()}" rowKey="#{item.codProduto}" 
+                     selection="#{pedidoVendaController.pedidoVenda.produto}"  rows="10" paginator="true">
+
+                        <f:facet name="header">
+                            LISTA DE PRODUTO
+                        </f:facet>
+
+					<p:column selectionMode="multiple" />
+										
+                        <p:column headerText="Código">
+                            #{item.codProduto}
+                        </p:column>
+
+                        <p:column headerText="Nome Produto" filterBy="#{item.nomeProduto}" sortBy="#{item.nomeProduto}" >
+                            #{item.nomeProduto}
+                        </p:column>
+                        
+                          <p:column headerText="Preço" >
+                            #{item.precoVendaProduto}
+                        </p:column>
+
+                    </p:dataTable>
+                </p:tab>
+                                            
+                        <p:tab id="cadPedidoVenda" title="Preencher Dados Venda">
+                            <p:panel header="Dados da Venda">
+                                <p:panelGrid columns="3">
+                                    <h:outputText  value="Codigo Venda:"/>
+                                    <p:inputNumber id="codigo" value="#{pedidoVendaController.pedidoVenda.codPedidoVenda}" required="true"
+                                                 requiredMessage="Tá faltando preencher o campo codigo!"/>
+                                    <p:message for="codigo"/>
+                                    
+									<!--  <h:outputText  value="Data:"/>
+                                    <p:inputText id="data" value="#{pedidoVendaController.pedidoVenda.dataPedido}" required="true"
+                                                 requiredMessage="Tá faltando preencher o campo data!"/>
+                                    <p:message for="data"/>
+									
+									 <h:outputText  value="Valor Total:"/>
+                                    <p:calendar id="data" value="#{vendaController.venda.data}"
+                                                 requiredMessage="Tá faltando preencher o campo data!"/>
+                                    <p:message for="data"/>
+                                    
+                                     <h:outputText  value="Status:"/>
+                                    <p:calendar id="data" value="#{vendaController.venda.data}"
+                                                 requiredMessage="Tá faltando preencher o campo data!"/>
+                                    <p:message for="data"/>  -->
+
+                                </p:panelGrid>
+                            </p:panel>
+                        </p:tab>
+                        
+                        <p:tab id="visualizarVenda" title="Visualizar Venda">
+                            <p:panel header="Visualizar Dados da Venda">
+                                <p:panelGrid columns="2">
+                                    <h:outputText value="Nome do Cliente:"/>
+                                    <h:outputText value="#{pedidoVendaController.pedidoVenda.cliente.nomeCliente}"/>
+
+									<h:outputText value="Produtos:"/>
+                                    <h:outputText value="#{pedidoVendaController.pedidoVenda.produtosPedido}"/>
+                                   
+
+									<!--
+									
+									 <h:outputText value="Nome do Produto:"/>
+                                    <h:outputText value="#{pedidoVendaController.pedidoVenda.produto.nomeProduto}"/>
+									
+									 <h:outputText value="Data da Venda:"/>
+                                    <h:outputText value="#{pedidoVendaController.pedidoVenda.dataPedido}"/> -->
+
+                                    
+                                    
+                                    <!-- FALTA A LOGICA DO TOTAL
+                                    
+                                      <h:outputText value="Total:"/>
+                                    <h:outputText value="#{vendaController.total()}"/>  -->
+                               
+                                    
+                                </p:panelGrid>
+                                <p:commandButton value="Finalizar Venda" action="#{pedidoVendaController.inserirPedidoVendaAction()}"
+                                            update=":formVenda :groMessage" >
+                                    <p:confirm header="Atenção" message="Deseja finalizar sua Venda?" />
+                                </p:commandButton>
+                            </p:panel>
+                        </p:tab>
+                    </p:wizard>
+                </h:form>
+                <p:confirmDialog  id="dialConfirm" global="true" widgetVar="widDialConfirma" >
+                    <h:form>
+                        <p:commandButton value="sim" styleClass="ui-confirmdialog-yes" type="button" icon="ui-icon-check"/>
+                        <p:commandButton value="não" styleClass="ui-confirmdialog-no" type="button" icon="ui-icon-close"/>
+                    </h:form>    
+                </p:confirmDialog>
+	</h:body>
+</f:view>
+</html>

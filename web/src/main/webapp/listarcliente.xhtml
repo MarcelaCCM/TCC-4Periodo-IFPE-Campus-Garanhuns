@@ -17,7 +17,8 @@
 	<h:body>
 		<h:form id="formCadCliente">
 			<p:dataTable id="tableCliente" value="#{clienteController.listarTodosClienteAction()}"
-                                 var="item" rowKey="#{item.codCliente}" paginator="true" rows="10" selectionMode="single">
+                                 var="item" rowKey="#{item.codCliente}" paginator="true" rows="10" selectionMode="single"
+                                  selection="#{clienteController.selectedCliente}">
                  <p:column headerText="Código" width="20%" style="text-align: center;">
                      #{item.codCliente}
                  </p:column>
@@ -33,13 +34,14 @@
                   <p:column headerText="Emaill">
                      #{item.emailCliente}         
                  </p:column>
-                 <p:column headerText="ALTERAR - EXCLUIR" style="text-align: center">
-                    <!--Abaixo o botão editar com uma Action do nosso metodo editar que criamos no Bean-->
-                    <p:commandButton action="#{clienteController.linkAlterar()}" value="EDITAR" title="Editar" ajax="false"  >  
-                    </p:commandButton>
-                </p:column>
+                 <p:column headerText="Ação">
+                 	<h:commandLink action="#{clienteController.editarTeste(item)}" value="Editar">
+                 	</h:commandLink>
+                 </p:column>
              </p:dataTable>
+             
 		</h:form>
+		
 	</h:body>
 </f:view>
 </html>

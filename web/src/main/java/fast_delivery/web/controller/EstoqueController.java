@@ -10,13 +10,14 @@ public class EstoqueController {
 	ProdutoModel pm = new ProdutoModel();
 
 	public void removerProduto(List<Produto> produtos) {
-		for (Produto produto : produtos) {
-			Produto produtoAux = pm.recuperarPorCodigo(produto.getCodProduto());
-			produtoAux.setQuantProduto(produtoAux.getQuantProduto() - produto.getQuantProduto());
-			if (verificarDisponibilidadeProduto(produtoAux) == true) {
+		for (Produto produtoVenda : produtos) {
+			Produto produtoAux = pm.recuperarPorCodigo(produtoVenda.getCodProduto());
+			
+			if (verificarDisponibilidadeProduto(produtoAux, produtoVenda) == true) {
+				produtoAux.setQuantProduto(produtoAux.getQuantProduto() - produtoVenda.getQuantProduto());
 				pm.alterar(produtoAux);
 			} else {
-				produtoAux.setQuantProduto(produtoAux.getQuantProduto() + produto.getQuantProduto());
+				produtoAux.setQuantProduto(produtoAux.getQuantProduto() + produtoVenda.getQuantProduto());
 				System.out.println("Quantidade INDISPONIVEL");
 			}
 		}
@@ -30,10 +31,14 @@ public class EstoqueController {
 		}
 	}
 
-	public boolean verificarDisponibilidadeProduto(Produto produto) {
+	public boolean verificarDisponibilidadeProduto(Produto produtoAux, Produto produtoVenda) {
 		
-		if (produto.getQuantProduto() >= 0) {
+		if (produtoAux.getQuantProduto() > 0) {
+			if(produtoVenda.getQuantProduto() <= produtoAux.getQuantProduto()) {
+				
 			return true;
+			}
+			
 		}
 
 		return false;

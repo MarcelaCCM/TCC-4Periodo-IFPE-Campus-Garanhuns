@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+	<title>Lista de Produtos</title>
+</h:head>
+<h:body>
+	<center>
+		<p:fieldset>
+			<h1>Lista de Produto</h1>
+		</p:fieldset>
+
+		<h:form>
+            
+			
+            <p:fieldset legend="Lista">
+            
+            
+				<p:dataTable emptyMessage="nada encontrado" 
+				value="#{produtoController.produtos}" var="produto">
+				
+				
+				
+									
+					<p:column headerText="nome">
+
+						<h:form>
+							<p:growl id="messages" />
+
+							<h:panelGrid columns="2" style="margin-bottom:10px"
+								cellpadding="5">
+								<h:outputText  value="#{produto.nomeProduto}"  />
+							 	
+									
+										
+							</h:panelGrid>
+						</h:form>
+					</p:column>
+					
+					<p:column headerText="quantidade">
+
+						<h:form>
+							<p:growl id="messages" />
+
+							<h:panelGrid columns="2" style="margin-bottom:10px"
+								cellpadding="5">
+								<h:outputText  value="#{produto.quantProduto}"  />
+							 				
+							</h:panelGrid>
+						</h:form>
+					</p:column>
+					
+				
+                    <p:column headerText="Ações">
+                       <h:form>
+                          <h:panelGrid columns="2" style="margin-bottom:10px">
+                           
+                          <h:commandLink action="#{produtoController.alterarProdutoAction(produto)}" value="atualizar">
+                            
+                          </h:commandLink>
+                          
+		                           
+		                         
+                          
+                          </h:panelGrid>
+                       
+                       </h:form>
+                       
+                       
+                    
+              
+						
+					</p:column>
+				
+				<p:column>	
+					<h:form>     
+						    <p:growl id="message" showDetail="true" />
+						     
+						    <h:commandButton value="Destroy the World" actionListener="#{produtoController.deletarProdutoAction()}">
+						         <f:setPropertyActionListener  target="#{produtoController.selectedProdut}" value="#{produto}"></f:setPropertyActionListener>
+                               
+						    </h:commandButton>
+						     
+						       
+					</h:form>
+				</p:column>	
+				</p:dataTable>
+
+
+			</p:fieldset>
+
+
+		</h:form>
+	</center>
+</h:body>
+</html>
